@@ -26,7 +26,9 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 ## Repository Setup instruction
 
 1. clone this repository in your ros2 workspace's src folder by ```git clone https://github.com/vedran97/spectral_fubar.git```
-2. Run ```rosdep install -i --from-path src --rosdistro humble -y``` in a command line in workspace root
+2. clone the following repository in your ros2 workspace's src folder ```https://github.com/husky/husky.git```
+3. launch a terminal window in workspace root, ```cd src/husky && git checkout humble-devel && cd -```
+4. Run ```rosdep install -i --from-path src --rosdistro humble -y``` in a command line in workspace root
 
 ## Build instructions
 
