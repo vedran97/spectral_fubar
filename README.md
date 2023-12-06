@@ -65,4 +65,11 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 
 ## Launch Instructions
 
-1. ``````
+Change directory to your ROS2 workspace
+
+```bash
+cd <your_ros2_workspace>
+colcon build
+source install/setup.bash
+ros2 launch spectral_fubar husky_outdoor.launch.py
+```
