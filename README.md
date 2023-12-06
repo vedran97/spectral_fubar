@@ -61,7 +61,8 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 
 ## Docs generation
 
-1. Add steps to run documentation generation
+0. ```sudo apt install -y doxygen lcov gcovr pandoc```
+1. ```colcon build --event-handlers console_cohesion+ --packages-select spectral_fubar --cmake-target "docs" ```
 
 ## Launch Instructions
 

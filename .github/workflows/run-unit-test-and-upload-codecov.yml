@@ -34,13 +34,13 @@
 
 name: Run Unit Test and Upload Coverage Report
 on:
-  # Triggered whenever push to main
+  # Triggered whenever push to master
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
-  # Triggered whenever a pull request is created on main
+  # Triggered whenever a pull request is created on master
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
     types: [opened]
 
   # Allow manual trigger
