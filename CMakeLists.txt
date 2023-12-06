@@ -90,7 +90,7 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   )
-  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp)
+  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp std_msgs)
 endif()
 
 
