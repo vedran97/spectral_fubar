@@ -1,5 +1,5 @@
 # Project Spectral Fubar
-![CICD Workflow status](https://github.com/vedran97/spectral_fubar/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/vedran97/spectral_fubar/branch/master/graph/badge.svg)](https://codecov.io/gh/vedran97/spectral_fubar)
+![CICD Workflow status](https://github.com/vedran97/spectral_fubar/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/vedran97/spectral_fubar/branch/main/graph/badge.svg)](https://codecov.io/gh/vedran97/spectral_fubar)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Description
