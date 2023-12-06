@@ -72,6 +72,6 @@ Change directory to your ROS2 workspace
 cd <your_ros2_workspace>
 colcon build
 source install/setup.bash
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/models
+export GAZEBO_MODEL_PATH=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/models:~/.gazebo/models:$GAZEBO_MODEL_PATH
 ros2 launch spectral_fubar husky_outdoor.launch.py
 ```
