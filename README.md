@@ -53,8 +53,16 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 
 ## Test instructions
 
-1. Add steps to run tests
+1. cd to your colcon_ws
+2. source appropriate ros
+3. Run this ```rm -rf build/spectral_fubar```
+4. Run this next to build package,source package,run the test```colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --parallel-workers $(nproc) --packages-select spectral_fubar && source install/setup.bash && colcon test --packages-select spectral_fubar```
+5. Run this to check results: ```cat log/latest_test/spectral_fubar/stdout_stderr.log``
 
 ## Docs generation
 
 1. Add steps to run documentation generation
+
+## Launch Instructions
+
+1. ``````
