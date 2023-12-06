@@ -17,6 +17,12 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 
 1. This repo is designed to be used with ROS2 Humble and Ubuntu 22.04
 
+## AIP and Final Deliverables
+
+1. Sprint Log is here: [LINK](https://docs.google.com/document/d/1LM4T2IaXjHfa725iT_XrGdjAjX6Vu2G_JORIrd1daMI/edit?usp=sharing)
+2. AIP Work Logs are here: [LINK](https://docs.google.com/spreadsheets/d/1apXGEWr1nkUdqm7aSSiJ8yui3v2pkUTxmMRXO4ydDmY/edit?usp=sharing)
+3. Final Deliverables are here: [LINK](https://drive.google.com/drive/folders/1iyCzRlYM_VHO__MNFvLk7GiNthm--4n8?usp=drive_link) (including proposal)
+
 ## Repository Setup instruction
 
 1. clone this repository in your ros2 workspace's src folder by ```git clone https://github.com/vedran97/spectral_fubar.git```
