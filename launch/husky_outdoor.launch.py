@@ -9,7 +9,7 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     
     world_file = PathJoinSubstitution(
-        [FindPackageShare("husky_gazebo"),
+        [FindPackageShare("spectral_fubar"),
         "worlds",
         "outdoor.world"]
     )
