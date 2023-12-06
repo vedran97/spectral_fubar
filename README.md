@@ -6,6 +6,7 @@
 
 This project uses a Husky robot, mounted with a variety of vision sensors, for post natural disaster road inspection.
 The Husky robot uses a depth camera, and object detection/localization algorithm to detect, localize an obstacle/debris seen on a road.
+![Alt text](screenshot/husky_outdoor%20world%20with%20obstacles.png)
 
 ## Personnel
 
