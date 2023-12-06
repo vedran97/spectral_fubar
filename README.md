@@ -13,17 +13,35 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 2. Jerry Pittman
 3. Aaqib Barodawala
 
+## Environment
+
+1. This repo is designed to be used with ROS2 Humble and Ubuntu 22.04
+
 ## Repository Setup instruction
 
-1. TODO: ADD steps
+1. clone this repository in your ros2 workspace's src folder by ```git clone https://github.com/vedran97/spectral_fubar.git```
+2. Run ```rosdep install -i --from-path src --rosdistro humble -y``` in a command line in workspace root
 
 ## Build instructions
 
-1. TODO: Add cmd for build instructions
+1. Build the workspace:```colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --parallel-workers $(nproc)```
+2. Source the workspace: ```source install/setup.bash```
 
 ## Cpp-Tools instructions
 
-1. Add steps to run cpplint cppcheck and clangformat
+```bash
+# run clang-format from workspace root
+
+  cd src/spectral_fubar && clang-format -i --style=Google $(find . -name *.cpp -o -name *.hpp | grep -vE -e "^(./build/|./install/|./log/)") && cd -
+
+# run cppcheck from inside the pkg directory
+  mkdir results -p && cppcheck --enable=all --std=c++17 -I include/ --suppress=missingInclude --inline-suppr $( find . -name *.cpp | grep -vE -e "^(./build/|./install/|./log/)" ) &> results/cppcheck
+
+# run cpplint from inside the pkg directory
+
+  mkdir results -p && cpplint  --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order $( find . -name *.cpp | grep -vE -e "^(./build/|./install/|./log/)" ) &> results/cpplint
+
+```
 
 ## Test instructions
 
