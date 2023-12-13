@@ -86,14 +86,19 @@ set(SOURCES
   )
 
 set(INCLUDES
-    include/constants.h
-    include/base_realsense_node.h
-    include/image_publisher.h)
+    include/spectral_fubar/constants.h
+    include/spectral_fubar/ros_utils.h
+    include/spectral_fubar/base_realsense_node.h
+    include/spectral_fubar/image_publisher.h)
 
 add_library(${PROJECT_NAME} SHARED
     ${INCLUDES}
     ${SOURCES}
 )
+
+target_link_libraries(${PROJECT_NAME}
+    ${realsense2_LIBRARY}
+    )
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)

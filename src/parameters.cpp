@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "../include/base_realsense_node.h"
+#include "../include/spectral_fubar/base_realsense_node.h"
 #include <ros_utils.h>
 #include <iomanip>
 
