@@ -9,10 +9,22 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(image_transport REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(realsense2_camera_msgs REQUIRED)
 find_package(Doxygen REQUIRED)
+
+find_package(realsense2 2.54.1)
+if(NOT realsense2_FOUND)
+    message(FATAL_ERROR "\n\n Intel RealSense SDK 2.0 is missing, please install it from https://github.com/IntelRealSense/librealsense/releases\n\n")
+endif()
 
 if(COVERAGE)
   set(CMAKE_BUILD_TYPE "Debug")
@@ -65,6 +77,22 @@ doxygen_add_docs(docs           # target name
 install(
   DIRECTORY launch worlds models
   DESTINATION share/${PROJECT_NAME}
+)
+
+set(SOURCES
+    src/base_realsense_node.cpp
+    src/parameters.cpp
+    src/tfs.cpp
+  )
+
+set(INCLUDES
+    include/constants.h
+    include/base_realsense_node.h
+    include/image_publisher.h)
+
+add_library(${PROJECT_NAME} SHARED
+    ${INCLUDES}
+    ${SOURCES}
 )
 
 if(BUILD_TESTING)
