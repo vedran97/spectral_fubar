@@ -9,6 +9,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
@@ -73,6 +74,11 @@ doxygen_add_docs(docs           # target name
   ${PROJECT_SOURCE_DIR}/test
   )
 
+# Install headers
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
 
 install(
   DIRECTORY launch worlds models
@@ -86,10 +92,10 @@ set(SOURCES
   )
 
 set(INCLUDES
-    include/spectral_fubar/constants.h
-    include/spectral_fubar/ros_utils.h
-    include/spectral_fubar/base_realsense_node.h
-    include/spectral_fubar/image_publisher.h)
+    include/${PROJECT_NAME}/constants.h
+    include/${PROJECT_NAME}/ros_utils.h
+    include/${PROJECT_NAME}/base_realsense_node.h
+    include/${PROJECT_NAME}/image_publisher.h)
 
 add_library(${PROJECT_NAME} SHARED
     ${INCLUDES}
