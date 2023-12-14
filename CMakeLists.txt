@@ -88,57 +88,61 @@ install(
 
 include_directories(include)
 
-set(SOURCES
-    src/base_realsense_node.cpp
-    src/parameters.cpp
-    src/tfs.cpp
-    src/rs_node_setup.cpp
-    src/named_filter.cpp
-    src/profile_manager.cpp
-    src/ros_sensor.cpp
-    src/ros_utils.cpp
-    src/dynamic_params.cpp
-  )
+set(node_plugins "")
 
-set(INCLUDES
-    include/${PROJECT_NAME}/ros_sensor.h
-    include/${PROJECT_NAME}/dynamic_params.h
-    include/${PROJECT_NAME}/sensor_params.h
-    include/${PROJECT_NAME}/named_filter.h
-    include/${PROJECT_NAME}/ros_param_backend.h
-    include/${PROJECT_NAME}/image_publisher.h
-    include/${PROJECT_NAME}/constants.h
-    include/${PROJECT_NAME}/ros_utils.h
-    include/${PROJECT_NAME}/base_realsense_node.h
-    include/${PROJECT_NAME}/image_publisher.h)
+# set(SOURCES
+#     src/base_realsense_node.cpp
+#     src/parameters.cpp
+#     src/tfs.cpp
+#     src/rs_node_setup.cpp
+#     src/named_filter.cpp
+#     src/profile_manager.cpp
+#     src/ros_sensor.cpp
+#     src/ros_utils.cpp
+#     src/dynamic_params.cpp
+#     src/image_publisher.cpp
+#     src/ros_param_backend.cpp
+#   )
 
-add_library(${PROJECT_NAME} SHARED
-    ${INCLUDES}
-    ${SOURCES}
-)
+# set(INCLUDES
+#     include/${PROJECT_NAME}/ros_sensor.h
+#     include/${PROJECT_NAME}/dynamic_params.h
+#     include/${PROJECT_NAME}/sensor_params.h
+#     include/${PROJECT_NAME}/named_filter.h
+#     include/${PROJECT_NAME}/ros_param_backend.h
+#     include/${PROJECT_NAME}/image_publisher.h
+#     include/${PROJECT_NAME}/constants.h
+#     include/${PROJECT_NAME}/ros_utils.h
+#     include/${PROJECT_NAME}/base_realsense_node.h
+#     include/${PROJECT_NAME}/image_publisher.h)
 
-target_link_libraries(${PROJECT_NAME}
-    ${realsense2_LIBRARY}
-)
+# add_library(${PROJECT_NAME} SHARED
+#     ${INCLUDES}
+#     ${SOURCES}
+# )
 
-set(dependencies
-  cv_bridge
-  image_transport
-  rclcpp
-  rclcpp_components
-  realsense2_camera_msgs
-  std_msgs
-  sensor_msgs
-  nav_msgs
-  tf2
-  realsense2
-  tf2_ros
-  diagnostic_updater
-)
+# target_link_libraries(${PROJECT_NAME}
+#     ${realsense2_LIBRARY}
+# )
 
-ament_target_dependencies(${PROJECT_NAME}
-  ${dependencies}
-)
+# set(dependencies
+#   cv_bridge
+#   image_transport
+#   rclcpp
+#   rclcpp_components
+#   realsense2_camera_msgs
+#   std_msgs
+#   sensor_msgs
+#   nav_msgs
+#   tf2
+#   realsense2
+#   tf2_ros
+#   diagnostic_updater
+# )
+
+# ament_target_dependencies(${PROJECT_NAME}
+#   ${dependencies}
+# )
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -167,8 +171,8 @@ if(BUILD_TESTING)
 endif()
 
 # Ament exports
-ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
-ament_export_dependencies(${dependencies})
+# ament_export_include_directories(include)
+# ament_export_libraries(${PROJECT_NAME})
+# ament_export_dependencies(${dependencies})
 
 ament_package()
