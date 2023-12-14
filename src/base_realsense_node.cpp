@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "../include/spectral_fubar/base_realsense_node.h"
+#include <base_realsense_node.h>
+#include "base_realsense_node.h"
+
 #include "assert.h"
 #include <algorithm>
 #include <mutex>
 #include <rclcpp/clock.hpp>
 #include <fstream>
+
 #include <image_publisher.h>
 
 // Header files for disabling intra-process comms for static broadcaster.

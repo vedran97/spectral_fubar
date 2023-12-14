@@ -20,6 +20,7 @@ find_package(nav_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(realsense2_camera_msgs REQUIRED)
+find_package(diagnostic_updater REQUIRED)
 find_package(Doxygen REQUIRED)
 
 find_package(realsense2 2.54.1)
@@ -76,7 +77,7 @@ doxygen_add_docs(docs           # target name
 
 # Install headers
 install(
-  DIRECTORY include/
+  DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include
 )
 
@@ -85,13 +86,27 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+include_directories(include)
+
 set(SOURCES
     src/base_realsense_node.cpp
     src/parameters.cpp
     src/tfs.cpp
+    src/rs_node_setup.cpp
+    src/named_filter.cpp
+    src/profile_manager.cpp
+    src/ros_sensor.cpp
+    src/ros_utils.cpp
+    src/dynamic_params.cpp
   )
 
 set(INCLUDES
+    include/${PROJECT_NAME}/ros_sensor.h
+    include/${PROJECT_NAME}/dynamic_params.h
+    include/${PROJECT_NAME}/sensor_params.h
+    include/${PROJECT_NAME}/named_filter.h
+    include/${PROJECT_NAME}/ros_param_backend.h
+    include/${PROJECT_NAME}/image_publisher.h
     include/${PROJECT_NAME}/constants.h
     include/${PROJECT_NAME}/ros_utils.h
     include/${PROJECT_NAME}/base_realsense_node.h
@@ -104,7 +119,26 @@ add_library(${PROJECT_NAME} SHARED
 
 target_link_libraries(${PROJECT_NAME}
     ${realsense2_LIBRARY}
-    )
+)
+
+set(dependencies
+  cv_bridge
+  image_transport
+  rclcpp
+  rclcpp_components
+  realsense2_camera_msgs
+  std_msgs
+  sensor_msgs
+  nav_msgs
+  tf2
+  realsense2
+  tf2_ros
+  diagnostic_updater
+)
+
+ament_target_dependencies(${PROJECT_NAME}
+  ${dependencies}
+)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -129,9 +163,12 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   )
-  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp std_msgs)
+  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp  rclcpp_components sensor_msgs std_msgs)
 endif()
 
-
+# Ament exports
+ament_export_include_directories(include)
+ament_export_libraries(${PROJECT_NAME})
+ament_export_dependencies(${dependencies})
 
 ament_package()

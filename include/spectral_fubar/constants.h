@@ -15,6 +15,7 @@
 #pragma once
 
 #include <string>
+// #include "rclcpp/rclcpp.hpp"
 #include <rclcpp/rclcpp.hpp>
 
 #define REALSENSE_ROS_MAJOR_VERSION    4
