@@ -2,7 +2,7 @@
   <world name='outdoor'>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-5.71811 -4.74684 5.45226 0 0.539643 0.352195</pose>
+        <pose>-29.4893 -4.39145 28.3122 0 0.539643 0.352195</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -3672,239 +3672,11 @@
         <kinematic>0</kinematic>
       </link>
     </model>
-    <model name='Dumpster_0'>
-      <link name='link'>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <scale>1.5 1.5 1.5</scale>
-              <uri>model://dumpster/meshes/dumpster.dae</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <scale>1.5 1.5 1.5</scale>
-              <uri>model://dumpster/meshes/dumpster.dae</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://dumpster/materials/scripts</uri>
-              <uri>model://dumpster/materials/textures</uri>
-              <name>Dumpster/Diffuse</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <inertia>
-            <ixx>1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1</iyy>
-            <iyz>0</iyz>
-            <izz>1</izz>
-          </inertia>
-          <mass>1</mass>
-        </inertial>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>4.51669 -3.0375 0 0 -0 0</pose>
-    </model>
-    <model name='Construction Barrel'>
-      <link name='link'>
-        <inertial>
-          <pose>0 0 0.4 0 -0 0</pose>
-          <mass>500</mass>
-          <inertia>
-            <ixx>51.2096</ixx>
-            <iyy>51.2096</iyy>
-            <izz>25</izz>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyz>0</iyz>
-          </inertia>
-        </inertial>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>model://construction_barrel/meshes/construction_barrel.dae</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://construction_barrel/meshes/construction_barrel.dae</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>7.64014 -1.26451 0 0 -0 0</pose>
-    </model>
-    <model name='ambulance'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <scale>0.0254 0.0254 0.0254</scale>
-              <uri>model://ambulance/meshes/ambulance.obj</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <scale>0.0254 0.0254 0.0254</scale>
-              <uri>model://ambulance/meshes/ambulance.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>29.2104 3.82863 0 0 -0 0</pose>
-    </model>
-    <model name='hatchback_blue'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
-          <pose>0 0 0 0 -0 1.5708</pose>
-          <geometry>
-            <mesh>
-              <scale>0.0254 0.0254 0.0254</scale>
-              <uri>model://hatchback_blue/meshes/hatchback.obj</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <pose>0 0 0 0 -0 1.5708</pose>
-          <geometry>
-            <mesh>
-              <scale>0.0254 0.0254 0.0254</scale>
-              <uri>model://hatchback_blue/meshes/hatchback.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>15.5614 1.43514 0 0 -0 0</pose>
-    </model>
-    <model name='first_2015_trash_can'>
-      <link name='link'>
-        <inertial>
-          <pose>0 0 0.3683 0 -0 0</pose>
-          <mass>4.83076</mass>
-          <inertia>
-            <ixx>0.281534</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.281534</iyy>
-            <iyz>0</iyz>
-            <izz>0.126223</izz>
-          </inertia>
-        </inertial>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://first_2015_trash_can/meshes/trash_can.dae</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>model://first_2015_trash_can/meshes/trash_can.dae</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>24.1669 -1.73243 0 0 -0 0</pose>
-    </model>
     <state world_name='outdoor'>
-      <sim_time>716 910000000</sim_time>
-      <real_time>69 425198949</real_time>
-      <wall_time>1701837105 891228999</wall_time>
-      <iterations>6817</iterations>
+      <sim_time>834 900000000</sim_time>
+      <real_time>118 292502449</real_time>
+      <wall_time>1702940948 714619642</wall_time>
+      <iterations>11799</iterations>
       <model name='Box'>
         <pose>9.49331 1.24859 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -3935,16 +3707,6 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='Construction Barrel'>
-        <pose>7.64014 -1.26428 0.009893 -0.000103 -0.00043 -0.000182</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>7.64014 -1.26428 0.009893 -0.000103 -0.00043 -0.000182</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-2.99271 2.98877 -0.055445 -1.18679 -1.19659 -0.001916</acceleration>
-          <wrench>-1496.35 1494.38 -27.7225 0 -0 0</wrench>
-        </link>
-      </model>
       <model name='Dumpster'>
         <pose>143 51.5 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -3953,36 +3715,6 @@
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='Dumpster_0'>
-        <pose>4.51668 -3.03723 0.009973 5.3e-05 -0.001369 0.000307</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>4.51668 -3.03723 0.009973 5.3e-05 -0.001369 0.000307</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.013948 -0.000492 -0.065582 -2.76711 0.543258 -3.14153</acceleration>
-          <wrench>-0.013948 -0.000492 -0.065582 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='ambulance'>
-        <pose>29.2104 3.82863 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>29.2104 3.82863 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='first_2015_trash_can'>
-        <pose>24.1662 -1.73198 0.009811 0.001552 0.000205 -0.001319</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>24.1662 -1.73198 0.009811 0.001552 0.000205 -0.001319</pose>
-          <velocity>1e-06 5e-06 -0.011852 0.12748 0.034047 2.3e-05</velocity>
-          <acceleration>2.25765 -2.01698 0.447875 -0.809409 -0.171747 0.023788</acceleration>
-          <wrench>10.9062 -9.74355 2.16358 0 -0 0</wrench>
         </link>
       </model>
       <model name='gas_station'>
@@ -4000,16 +3732,6 @@
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>0 0 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='hatchback_blue'>
-        <pose>15.5614 1.43514 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>15.5614 1.43514 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -4371,8 +4093,8 @@
         <link name='link'>
           <pose>15.229 -0.638405 0.51 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
+          <acceleration>0 0 -0 0 -0 0</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_0'>
@@ -4381,8 +4103,8 @@
         <link name='link'>
           <pose>8.59861 0.544357 0.51 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0 -0 -0 -0</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <acceleration>0 0 -0 0 -0 0</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_1'>
@@ -4391,8 +4113,8 @@
         <link name='link'>
           <pose>25.1147 0.563359 0.51 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -0 0 -0 0</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <acceleration>0 -0 0 0 -0 0</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_2'>
@@ -4401,8 +4123,8 @@
         <link name='link'>
           <pose>34.0428 -0.821832 0.51 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
+          <acceleration>0 0 -0 0 -0 0</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_3'>
@@ -4411,8 +4133,8 @@
         <link name='link'>
           <pose>44.3406 0.501176 0.51 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -0 0 -0 0</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <acceleration>0 -0 0 0 -0 0</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
       </model>
       <light name='light_bulb'>
