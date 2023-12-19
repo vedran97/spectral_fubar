@@ -47,10 +47,10 @@ inline void Inspector::forward() {
   this->cmdVel_.linear.x = 0.5;
 }
 // @brief: Publishes on cmd_vel topic to turn the robot in z direction
-inline void Inspector::turn(int right) {
+inline void Inspector::turn(bool right) {
   RCLCPP_INFO_STREAM(this->get_logger(), "Turning");
   this->cmdVel_ = geometry_msgs::msg::Twist();
-  cmdVel_.angular.z = (right - 1) * 0.2;
+  cmdVel_.angular.z = 0.2* (right?-1.0:0.0);
   commandVelPublisher_->publish(cmdVel_);
 }
 // @brief: Publishes on cmd_vel topic to stop the robot

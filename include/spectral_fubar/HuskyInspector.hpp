@@ -28,7 +28,7 @@ class Inspector : public rclcpp::Node {
   // @brief: Publishes on cmd_vel topic to move the robot forward in x direction
   inline void forward();
   // @brief: Publishes on cmd_vel topic to turn the robot in z direction
-  inline void turn(int right);
+  inline void turn(bool right);
   // @brief: Publishes on cmd_vel topic to stop the robot
   inline void stop();
 };
