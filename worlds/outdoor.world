@@ -5,7 +5,7 @@
         <namespace>/gazebo</namespace>
       </ros>
 
-      <update_rate>0.01</update_rate>
+      <update_rate>100</update_rate>
     </plugin>
     <gui fullscreen='0'>
       <camera name='user_camera'>
