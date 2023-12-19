@@ -1,5 +1,12 @@
 <sdf version='1.7'>
   <world name='outdoor'>
+<plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+
+      <update_rate>0.01</update_rate>
+    </plugin>
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose>-29.4893 -4.39145 28.3122 0 0.539643 0.352195</pose>
