@@ -24,7 +24,7 @@
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>diagnostic_updater</depend>
-
+  <depend>gazebo_msgs</depend>
   <build_depend>ros_environment</build_depend>
 
   <exec_depend>launch_ros</exec_depend>
