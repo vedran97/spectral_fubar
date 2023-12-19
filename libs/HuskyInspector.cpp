@@ -15,6 +15,17 @@ Inspector::Inspector() : Node("inspector") {
   subscription_ = create_subscription<gazebo_msgs::msg::ModelStates>(
       "/gazebo/model_states", 10,
       std::bind(&Inspector::modelStatesCallback, this, std::placeholders::_1));
+    // subscribe to depth image topic
+    depthImgSubscriber_ = this->create_subscription<image>(
+        "/front_realsense_depth/depth/image_raw", 10, [this](const image& msg) {
+          auto recvimg=msg;
+          const auto data = reinterpret_cast<float*>(recvimg.data.data());
+        const auto& maxHeight = recvimg.height;
+        const auto& maxWidth = recvimg.width;
+          const auto idx = (maxHeight/2) * maxWidth + maxWidth/2;
+           const auto& pixel = data[idx];
+            RCLCPP_INFO(this->get_logger(),"Depth %f",pixel);
+        });
 }
 void Inspector::cmdVelPublisher() {
   this->commandVelPublisher_->publish(cmdVel_);

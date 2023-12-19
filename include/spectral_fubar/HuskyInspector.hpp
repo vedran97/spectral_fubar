@@ -7,7 +7,9 @@
 #include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/msg/image.hpp>
 namespace husky {
+   using image = sensor_msgs::msg::Image;
 class Inspector : public rclcpp::Node {
  public:
   Inspector();
@@ -16,6 +18,7 @@ class Inspector : public rclcpp::Node {
   geometry_msgs::msg::Pose robotPose_;
   geometry_msgs::msg::Twist cmdVel_;
   rclcpp::TimerBase::SharedPtr cmdVelTimer_;
+  rclcpp::Subscription<image>::SharedPtr depthImgSubscriber_;
   void cmdVelPublisher();
 
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr commandVelPublisher_;
