@@ -1,5 +1,6 @@
 #include "HuskyInspector.hpp"
-
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 namespace husky {
 Inspector::Inspector() : Node("inspector") {
   cmdVel_ = geometry_msgs::msg::Twist();
@@ -20,10 +21,15 @@ void Inspector::cmdVelPublisher(){
     for (size_t i = 0; i < msg->name.size(); ++i) {
       if (msg->name[i] == "husky") {
          robotPose_ = msg->pose[i];
-        RCLCPP_INFO(get_logger(), "Husky Pose: x=%f, y=%f, z=%f",
+        RCLCPP_DEBUG(get_logger(), "Husky Pose: x=%f, y=%f, z=%f",
                     robotPose_.position.x, robotPose_.position.y, robotPose_.position.z);
         break;  // Exit loop once "husky" is found
       }
     }
   }
+  void Inspector::quaternionToRPY(const geometry_msgs::msg::Quaternion& quaternion, double& roll, double& pitch, double& yaw) {
+    tf2::Quaternion tf_quaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+    tf2::Matrix3x3(tf_quaternion).getRPY(roll, pitch, yaw);
+}
+
 }  // namespace husky

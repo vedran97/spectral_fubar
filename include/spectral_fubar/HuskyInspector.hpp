@@ -20,6 +20,7 @@ class Inspector : public rclcpp::Node {
    rclcpp::Subscription<gazebo_msgs::msg::ModelStates>::SharedPtr subscription_;
    void modelStatesCallback(const gazebo_msgs::msg::ModelStates::SharedPtr msg);
    geometry_msgs::msg::Pose robotPose_;
+    void quaternionToRPY(const geometry_msgs::msg::Quaternion& quaternion, double& roll, double& pitch, double& yaw);
 };
 };  // namespace husky
 #endif

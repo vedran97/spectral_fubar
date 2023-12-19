@@ -27,6 +27,7 @@ find_package(realsense2_camera_msgs REQUIRED)
 find_package(diagnostic_updater REQUIRED)
 find_package(Doxygen REQUIRED)
 find_package(gazebo_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 find_package(realsense2 2.54.1)
 if(NOT realsense2_FOUND)
@@ -87,7 +88,7 @@ add_library(inspector_lib libs/HuskyInspector.cpp)
 target_include_directories(inspector_lib PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
   $<INSTALL_INTERFACE:include>)
-ament_target_dependencies(inspector_lib  rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs)
+ament_target_dependencies(inspector_lib  rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 ament_export_targets(inspector_lib HAS_LIBRARY_TARGET)
 # install the include directory to the install/include/
 install(
@@ -109,7 +110,7 @@ target_include_directories(inspector PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(inspector inspector_lib)
-ament_target_dependencies(inspector rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs)
+ament_target_dependencies(inspector rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 install(TARGETS inspector
   DESTINATION lib/${PROJECT_NAME})
 
