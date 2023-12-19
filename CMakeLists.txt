@@ -82,7 +82,7 @@ install(
 )
 
 install(
-  DIRECTORY launch worlds models rviz
+  DIRECTORY launch worlds models rviz urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
