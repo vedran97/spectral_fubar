@@ -26,6 +26,12 @@ def generate_launch_description():
         "default.rviz"]
     )
 
+    rs_launch_path = PathJoinSubstitution(
+        [FindPackageShare("spectral_fubar"),
+        "launch",
+        "rs_launch.launch.py"]
+    )
+
     gazebo_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([gazebo_launch]),
         launch_arguments={'world_path': world_file}.items(),
@@ -39,8 +45,13 @@ def generate_launch_description():
         arguments=['-d', rviz_config_file]
     )
 
+    rs_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([rs_launch_path]),
+        )
+
     ld = LaunchDescription()
     ld.add_action(gazebo_sim)
     ld.add_action(rviz_node)
+    ld.add_action(rs_launch)
 
     return ld
