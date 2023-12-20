@@ -7,14 +7,14 @@
 #include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
-#include <sensor_msgs/msg/image.hpp>
 namespace husky {
-   using image = sensor_msgs::msg::Image;
+using image = sensor_msgs::msg::Image;
 class Inspector : public rclcpp::Node {
  public:
   Inspector();
 
  private:
+  image lastDepth_;
   geometry_msgs::msg::Pose robotPose_;
   geometry_msgs::msg::Twist cmdVel_;
   rclcpp::TimerBase::SharedPtr cmdVelTimer_;
@@ -34,6 +34,10 @@ class Inspector : public rclcpp::Node {
   inline void turn(bool right);
   // @brief: Publishes on cmd_vel topic to stop the robot
   inline void stop();
+  // @brief Subscribes to depth images
+  void imageSubscriber(const image msg);
+  // @brief processes images
+  void imageProcessor();
 };
 };  // namespace husky
 #endif
