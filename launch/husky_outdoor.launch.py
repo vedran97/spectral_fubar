@@ -52,6 +52,6 @@ def generate_launch_description():
     ld = LaunchDescription()
     ld.add_action(gazebo_sim)
     ld.add_action(rviz_node)
-    ld.add_action(rs_launch)
+    # ld.add_action(rs_launch)
 
     return ld
