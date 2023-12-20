@@ -134,7 +134,7 @@ install(
 ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
-  py_nodes/py_node.py
+  py_nodes/worldTfPub.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
