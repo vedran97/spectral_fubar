@@ -6,6 +6,7 @@
 #include <rclcpp/logger.hpp>
 #include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <rclcpp/timer.hpp>
 #include <sensor_msgs/msg/image.hpp>
 namespace husky {
 enum class MotionState { START, FORWARD, TURN, DO_NOTHING };
@@ -29,6 +30,7 @@ class Inspector : public rclcpp::Node {
   geometry_msgs::msg::Twist cmdVel_;
   rclcpp::TimerBase::SharedPtr cmdVelTimer_;
   rclcpp::Subscription<image>::SharedPtr depthImgSubscriber_;
+  rclcpp::TimerBase::SharedPtr processTimer_;
   bool isObjectDetected_ = false;
   bool isRight_ = false;
   Point center_;
@@ -51,6 +53,8 @@ class Inspector : public rclcpp::Node {
   void imageSubscriber(const image msg);
   // @brief processes images
   void imageProcessor();
+  // @brief checks the image and changes motion state of the husky robot
+  void motionProcessor();
 };
 };  // namespace husky
 #endif

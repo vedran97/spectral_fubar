@@ -12,6 +12,7 @@ Inspector::Inspector() : Node("inspector") {
   cmdVelTimer_ =
       this->create_wall_timer(std::chrono::milliseconds(100),
                               std::bind(&Inspector::cmdVelPublisher, this));
+  // this is to subscribe to the last known robot pose
   subscription_ = create_subscription<gazebo_msgs::msg::ModelStates>(
       "/gazebo/model_states", 10,
       std::bind(&Inspector::modelStatesCallback, this, std::placeholders::_1));
@@ -19,6 +20,13 @@ Inspector::Inspector() : Node("inspector") {
   depthImgSubscriber_ = this->create_subscription<image>(
       "/front_realsense_depth/depth/image_raw", 10,
       std::bind(&Inspector::imageSubscriber, this, std::placeholders::_1));
+  // this timer updates motion and processes received images at 50Hz
+  processTimer_ =
+      this->create_wall_timer(std::chrono::milliseconds(100),
+                              std::bind(&Inspector::motionProcessor, this));
+}
+void Inspector::motionProcessor(){
+
 }
 void Inspector::cmdVelPublisher() {
   this->commandVelPublisher_->publish(cmdVel_);
