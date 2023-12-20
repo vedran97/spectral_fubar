@@ -28,8 +28,10 @@ find_package(diagnostic_updater REQUIRED)
 find_package(Doxygen REQUIRED)
 find_package(gazebo_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
-
+find_package(ament_cmake_python REQUIRED)
 find_package(realsense2 2.54.1)
+find_package(rclpy REQUIRED)
+
 if(NOT realsense2_FOUND)
     message(FATAL_ERROR "\n\n Intel RealSense SDK 2.0 is missing, please install it from https://github.com/IntelRealSense/librealsense/releases\n\n")
 endif()
@@ -128,7 +130,13 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-
+# Install Python modules
+ament_python_install_package(${PROJECT_NAME})
+# Install Python executables
+install(PROGRAMS
+  py_nodes/py_node.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
