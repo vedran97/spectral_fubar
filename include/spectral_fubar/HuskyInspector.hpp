@@ -18,6 +18,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/timer.hpp>
 #include <sensor_msgs/msg/image.hpp>
+// @brief namespace for husky inspector code
 namespace husky {
 //@brief Motion state the robot will always be in one of them
 enum class MotionState { START, FORWARD, TURN, DO_NOTHING };
@@ -50,6 +51,8 @@ class Inspector : public rclcpp::Node {
   Point center_;
   std::mutex dataMutex_;
   MotionState motionState_;
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr
+      obstaclePointPublisher_;
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr commandVelPublisher_;
   rclcpp::Subscription<gazebo_msgs::msg::ModelStates>::SharedPtr subscription_;
   // @brief: Publishes cmd_vel

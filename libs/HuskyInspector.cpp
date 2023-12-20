@@ -13,12 +13,16 @@
 
 #include <tf2/LinearMath/Quaternion.h>
 
+#include <geometry_msgs/msg/detail/point__struct.hpp>
+#include <iomanip>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 namespace husky {
 Inspector::Inspector() : Node("inspector") {
   cmdVel_ = geometry_msgs::msg::Twist();
   commandVelPublisher_ =
       this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
+  obstaclePointPublisher_ =
+      this->create_publisher<geometry_msgs::msg::Point>("obstacle_loc", 10);
   // timer callback function is called every 100ms
   cmdVelTimer_ =
       this->create_wall_timer(std::chrono::milliseconds(20),
@@ -114,10 +118,17 @@ void Inspector::imageProcessor(bool checkForObjectSize) {
           this->center_.depth =
               data[height * maxWidth + ((extentOfObject + width) / 2)];
           this->isRight_ = (center_.column > static_cast<float>(maxWidth / 2));
-          RCLCPP_INFO(
-              this->get_logger(),
-              "Detected objected centerPoint height %ld width %f extend %ld",
-              height, this->center_.column, extentOfObject);
+          RCLCPP_INFO(this->get_logger(),
+                      "Publishing Detected objected centerPoint height %ld "
+                      "width %f extend %ld on /obstacle_loc",
+                      height, this->center_.column, extentOfObject);
+          auto pt = geometry_msgs::msg::Point();
+          // @brief publishes the pixel location of center of obstacle, and its
+          // depth
+          pt.set__x(this->center_.column);
+          pt.set__y(this->center_.row);
+          pt.set__z(this->center_.depth);
+          obstaclePointPublisher_->publish(pt);
         }
         break;
       } else {
@@ -155,7 +166,7 @@ void Inspector::quaternionToRPY(
 
 // @brief: Publishes on cmd_vel topic to move the robot forward in x direction
 inline void Inspector::forward() {
-  RCLCPP_INFO_STREAM(this->get_logger(), "Moving forward");
+  RCLCPP_DEBUG(this->get_logger(), "Moving forward");
 
   this->cmdVel_ = geometry_msgs::msg::Twist();
   this->cmdVel_.linear.x = 1.0;
@@ -165,13 +176,13 @@ inline void Inspector::forward() {
 inline void Inspector::turn(bool right) {
   this->cmdVel_ = geometry_msgs::msg::Twist();
   cmdVel_.linear.x = 0.5;
-  cmdVel_.angular.z = 0.5 * (right ? 1.0 : -1.0);
+  cmdVel_.angular.z = 0.4 * (right ? 1.0 : -1.0);
   RCLCPP_INFO(this->get_logger(), "object to %s", right ? "right" : "left");
   commandVelPublisher_->publish(cmdVel_);
 }
 // @brief: Publishes on cmd_vel topic to stop the robot
 inline void Inspector::stop() {
-  RCLCPP_INFO_STREAM(this->get_logger(), "Stopping");
+  RCLCPP_DEBUG(this->get_logger(), "Stopping");
   this->cmdVel_ = geometry_msgs::msg::Twist();
   this->commandVelPublisher_->publish(cmdVel_);
 }
