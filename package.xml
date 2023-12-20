@@ -8,6 +8,7 @@
   <license>Apache</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <depend>rclcpp</depend>
   <depend>rclcpp_components</depend>
@@ -24,8 +25,10 @@
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>diagnostic_updater</depend>
-
+  <depend>gazebo_msgs</depend>
   <build_depend>ros_environment</build_depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>rclpy</depend>
 
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ros2launch</exec_depend>

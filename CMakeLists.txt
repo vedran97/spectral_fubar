@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(spectral_fubar)
 
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -22,8 +26,12 @@ find_package(tf2 REQUIRED)
 find_package(realsense2_camera_msgs REQUIRED)
 find_package(diagnostic_updater REQUIRED)
 find_package(Doxygen REQUIRED)
-
+find_package(gazebo_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(realsense2 2.54.1)
+find_package(rclpy REQUIRED)
+
 if(NOT realsense2_FOUND)
     message(FATAL_ERROR "\n\n Intel RealSense SDK 2.0 is missing, please install it from https://github.com/IntelRealSense/librealsense/releases\n\n")
 endif()
@@ -72,77 +80,64 @@ doxygen_add_docs(docs           # target name
   # List of files or directories
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}
-  ${PROJECT_SOURCE_DIR}/test
+  ${PROJECT_SOURCE_DIR}/libs/
   )
 
-# Install headers
+include_directories( ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
+
+## walker_lib can now be linked to any test_exec or runtime_exec possible
+add_library(inspector_lib libs/HuskyInspector.cpp)
+target_include_directories(inspector_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
+  $<INSTALL_INTERFACE:include>)
+ament_target_dependencies(inspector_lib  rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
+ament_export_targets(inspector_lib HAS_LIBRARY_TARGET)
+# install the include directory to the install/include/
 install(
-  DIRECTORY include/${PROJECT_NAME}/
+  DIRECTORY include
   DESTINATION include
 )
+install(
+  TARGETS inspector_lib
+  EXPORT inspector_lib
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
+## actual inspector node which links against inspector_lib
+add_executable(inspector src/main.cpp)
+target_include_directories(inspector PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
+  $<INSTALL_INTERFACE:include>)
+target_link_libraries(inspector inspector_lib)
+ament_target_dependencies(inspector rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
+install(TARGETS inspector
+  DESTINATION lib/${PROJECT_NAME})
+
+
+
+
+# # Install headers
+# install(
+#   DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION include
+# )
 
 install(
-  DIRECTORY launch worlds models rviz
+  DIRECTORY launch worlds models rviz urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
-include_directories(include)
-
-set(node_plugins "")
-
-# set(SOURCES
-#     src/base_realsense_node.cpp
-#     src/parameters.cpp
-#     src/tfs.cpp
-#     src/rs_node_setup.cpp
-#     src/named_filter.cpp
-#     src/profile_manager.cpp
-#     src/ros_sensor.cpp
-#     src/ros_utils.cpp
-#     src/dynamic_params.cpp
-#     src/image_publisher.cpp
-#     src/ros_param_backend.cpp
-#   )
-
-# set(INCLUDES
-#     include/${PROJECT_NAME}/ros_sensor.h
-#     include/${PROJECT_NAME}/dynamic_params.h
-#     include/${PROJECT_NAME}/sensor_params.h
-#     include/${PROJECT_NAME}/named_filter.h
-#     include/${PROJECT_NAME}/ros_param_backend.h
-#     include/${PROJECT_NAME}/image_publisher.h
-#     include/${PROJECT_NAME}/constants.h
-#     include/${PROJECT_NAME}/ros_utils.h
-#     include/${PROJECT_NAME}/base_realsense_node.h
-#     include/${PROJECT_NAME}/image_publisher.h)
-
-# add_library(${PROJECT_NAME} SHARED
-#     ${INCLUDES}
-#     ${SOURCES}
-# )
-
-# target_link_libraries(${PROJECT_NAME}
-#     ${realsense2_LIBRARY}
-# )
-
-# set(dependencies
-#   cv_bridge
-#   image_transport
-#   rclcpp
-#   rclcpp_components
-#   realsense2_camera_msgs
-#   std_msgs
-#   sensor_msgs
-#   nav_msgs
-#   tf2
-#   realsense2
-#   tf2_ros
-#   diagnostic_updater
-# )
-
-# ament_target_dependencies(${PROJECT_NAME}
-#   ${dependencies}
-# )
+# Install Python modules
+ament_python_install_package(${PROJECT_NAME})
+# Install Python executables
+install(PROGRAMS
+  py_nodes/worldTfPub.py
+  codecov/generate_coverage_report.bash
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -150,24 +145,27 @@ if(BUILD_TESTING)
   # the following line skips the linter which checks for copyrights
   # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
+  set(ament_cmake_flake8_FOUND TRUE)
+  set(ament_cmake_uncrustify_FOUND TRUE)
+  set(ament_cmake_lint_cmake_FOUND TRUE)
+  set(ament_cmake_xmllint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
   ament_add_gtest(${PROJECT_NAME}_unit_test test/unit_test.cpp)
   target_include_directories(${PROJECT_NAME}_unit_test PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
     $<INSTALL_INTERFACE:include>
   )
-
+  target_link_libraries(${PROJECT_NAME}_unit_test inspector_lib)
+  ament_target_dependencies(${PROJECT_NAME}_unit_test rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 
   ament_add_gtest(${PROJECT_NAME}_integration_test test/integration_test.cpp)
   target_include_directories(${PROJECT_NAME}_integration_test PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
     $<INSTALL_INTERFACE:include>
   )
-  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp  rclcpp_components sensor_msgs std_msgs)
+  target_link_libraries(${PROJECT_NAME}_integration_test inspector_lib)
+  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 endif()
 
 # Ament exports

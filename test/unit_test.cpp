@@ -1,14 +1,22 @@
 #include <gtest/gtest.h>
+#include <rclcpp/utilities.hpp>
+#include "HuskyInspector.hpp"
 
-bool unused_func() {
-  return false;
-}
 
-TEST(test_1, unused_func) {
-  EXPECT_EQ(true, unused_func());
-}
+
+TEST(test_1, is_right_check) {
+  auto inspector = std::make_shared<husky::Inspector>();
+  EXPECT_EQ(false, inspector->isRight());
+ }
+ TEST(test_2, isObjectDetected) {
+  auto inspector = std::make_shared<husky::Inspector>();
+  EXPECT_EQ(false, inspector->isObjectDetected());
+ }
 
 int main(int argc, char** argv) {
+  rclcpp::init(argc, argv);
   ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  auto ret = RUN_ALL_TESTS();
+  rclcpp::shutdown();
+  return ret;
 }
