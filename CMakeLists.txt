@@ -151,17 +151,17 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
   ament_add_gtest(${PROJECT_NAME}_unit_test test/unit_test.cpp)
   target_include_directories(${PROJECT_NAME}_unit_test PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
     $<INSTALL_INTERFACE:include>
   )
-
+  ament_target_dependencies(${PROJECT_NAME}_unit_test rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 
   ament_add_gtest(${PROJECT_NAME}_integration_test test/integration_test.cpp)
   target_include_directories(${PROJECT_NAME}_integration_test PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
     $<INSTALL_INTERFACE:include>
   )
-  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp  rclcpp_components sensor_msgs std_msgs)
+  ament_target_dependencies(${PROJECT_NAME}_integration_test rclcpp std_msgs geometry_msgs sensor_msgs gazebo_msgs tf2_geometry_msgs)
 endif()
 
 # Ament exports
