@@ -135,6 +135,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   py_nodes/worldTfPub.py
+  codecov/generate_coverage_report.bash
   DESTINATION lib/${PROJECT_NAME}
 )
 
