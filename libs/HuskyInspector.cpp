@@ -42,10 +42,12 @@ Inspector::Inspector() : Node("inspector") {
   motionState_ = MotionState::DO_NOTHING;
 }
 void Inspector::motionProcessor() {
+#ifndef INTEGRATION_TEST
   if (lastDepth_.header.stamp.nanosec > 0 &&
       motionState_ == MotionState::DO_NOTHING) {
     motionState_ = MotionState::START;
   }
+#endif
   updateMotionState();
 }
 void Inspector::updateMotionState() {

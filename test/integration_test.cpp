@@ -10,6 +10,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <HuskyInspector.hpp>
 
 class TaskPlanningFixture : public testing::Test {
  public:
@@ -26,7 +27,7 @@ class TaskPlanningFixture : public testing::Test {
      *  example: package name = cpp_pubsub, node name = minimal_publisher,
      * executable = talker
      */
-    bool retVal = StartROSExec("my_controller", "minimal_publisher", "talker");
+    bool retVal = StartROSExec("spectral_fubar", "inspector", "inspector");
     ASSERT_TRUE(retVal);
 
     RCLCPP_INFO_STREAM(node_->get_logger(), "DONE WITH SETUP!!");
@@ -95,14 +96,12 @@ TEST_F(TaskPlanningFixture, TrueIsTrueTest) {
   /*
    * 2.) subscribe to the topic
    */
-  using std_msgs::msg::String;
-  using SUBSCRIBER = rclcpp::Subscription<String>::SharedPtr;
   bool hasData = false;
-  SUBSCRIBER subscription = node_->create_subscription<String>(
-      "topic", 10,
+  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscriptions = node_->create_subscription<geometry_msgs::msg::Twist>(
+      "cmd_vel", 10,
       // Lambda expression begins
-      [&](const std_msgs::msg::String& msg) {
-        RCLCPP_INFO(node_->get_logger(), "I heard: '%s'", msg.data.c_str());
+      [&](const geometry_msgs::msg::Twist& msg) {
+        RCLCPP_INFO(node_->get_logger(), "I heard linear.x = %f", msg.linear.x);
         hasData = true;
       }  // end of lambda expression
   );
@@ -117,7 +116,7 @@ TEST_F(TaskPlanningFixture, TrueIsTrueTest) {
   clock_start = timer::now();
   elapsed_time = timer::now() - clock_start;
   rclcpp::Rate rate(2.0);  // 2hz checks
-  while ((elapsed_time < 3s) && !hasData) {
+  while ((elapsed_time < 10s) && !hasData) {
     rclcpp::spin_some(node_);
     rate.sleep();
     elapsed_time = timer::now() - clock_start;
