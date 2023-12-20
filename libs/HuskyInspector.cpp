@@ -24,12 +24,43 @@ void Inspector::cmdVelPublisher() {
   this->commandVelPublisher_->publish(cmdVel_);
 }
 void Inspector::imageProcessor() {
+  if (lastDepth_.header.stamp.nanosec > 0) {
+    return;
+  }
   const auto data = reinterpret_cast<float*>(lastDepth_.data.data());
   const auto& maxHeight = lastDepth_.height;
   const auto& maxWidth = lastDepth_.width;
-  const auto idx = (maxHeight / 2) * maxWidth + maxWidth / 2;
-  const auto& pixel = data[idx];
-  RCLCPP_INFO(this->get_logger(), "Depth %f", pixel);
+  const auto& step = lastDepth_.step;
+  // depth threshold is 2m, robot stops here
+  static const constexpr float depthThreshold = 0.7;
+  // check 5 pixels below
+  static const constexpr size_t heightDrop = 5;
+  for (size_t height = 0; height < maxHeight; height++) {
+    for (size_t width = 0; width < maxWidth; width++) {
+      const auto idx = height * maxWidth + width;
+      assert((width) <= step / sizeof(float));
+      const auto& depth = data[idx];
+
+      if (depth < depthThreshold) {
+        isObjectDetected_ = true;
+        size_t extentOfObject;
+        for (extentOfObject = width; extentOfObject < maxWidth;
+             extentOfObject++) {
+          const auto internalIdx =
+              (height + heightDrop) * maxWidth + extentOfObject;
+          const auto& internalDepth = data[internalIdx];
+          if ((internalDepth > depthThreshold)) {
+            break;
+          }
+        }
+        this->center_.column = static_cast<float>(extentOfObject + width) / 2;
+        this->center_.row = height;
+        this->isRight_ = (center_.column > static_cast<float>(maxWidth / 2));
+      } else {
+        isObjectDetected_ = false;
+      }
+    }
+  }
 }
 void Inspector::imageSubscriber(const image msg) { lastDepth_ = msg; };
 void Inspector::modelStatesCallback(
