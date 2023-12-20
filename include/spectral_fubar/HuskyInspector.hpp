@@ -18,7 +18,7 @@ struct Point {
   Point() {
     row = 0;
     column = 0;
-    depth=0;
+    depth = 0;
   }
 };
 using image = sensor_msgs::msg::Image;
@@ -36,7 +36,7 @@ class Inspector : public rclcpp::Node {
   volatile bool isObjectDetected_ = false;
   volatile bool isRight_ = false;
   Point center_;
-   std::mutex dataMutex_;
+  std::mutex dataMutex_;
   MotionState motionState_;
   void cmdVelPublisher();
 

@@ -24,7 +24,7 @@ Inspector::Inspector() : Node("inspector") {
   processTimer_ =
       this->create_wall_timer(std::chrono::milliseconds(100),
                               std::bind(&Inspector::motionProcessor, this));
-  motionState_=MotionState::DO_NOTHING;
+  motionState_ = MotionState::DO_NOTHING;
 }
 void Inspector::motionProcessor() {
   if (lastDepth_.header.stamp.nanosec > 0 &&
@@ -32,9 +32,8 @@ void Inspector::motionProcessor() {
     motionState_ = MotionState::START;
   }
   updateMotionState();
-
 }
-void Inspector::updateMotionState(){
+void Inspector::updateMotionState() {
   switch (motionState_) {
     case MotionState::START:
       motionState_ = MotionState::FORWARD;
@@ -44,7 +43,7 @@ void Inspector::updateMotionState(){
       if (isObjectDetected_) {
         stop();
         // set state to turn
-        RCLCPP_INFO(this->get_logger(),"Switching state to turn");
+        RCLCPP_INFO(this->get_logger(), "Switching state to turn");
         motionState_ = MotionState::TURN;
       } else {
         // move forward
@@ -80,13 +79,13 @@ void Inspector::imageProcessor(bool checkForObjectSize) {
   static const constexpr float depthThreshold = 2.0;
   // check 5 pixels below
   static const constexpr size_t heightDrop = 1;
-  for (size_t height = 0; height < (maxHeight/2); height++) {
+  for (size_t height = 0; height < (maxHeight / 2); height++) {
     for (size_t width = 0; width < maxWidth; width++) {
       const auto idx = height * maxWidth + width;
       assert((width) <= step / sizeof(float));
       const auto& depth = data[idx];
       if (depth < depthThreshold) {
-        //RCLCPP_INFO(this->get_logger(),"Depth %f", depth);
+        // RCLCPP_INFO(this->get_logger(),"Depth %f", depth);
         isObjectDetected_ = true;
         if (checkForObjectSize) {
           size_t extentOfObject;
@@ -101,16 +100,20 @@ void Inspector::imageProcessor(bool checkForObjectSize) {
           }
           this->center_.column = static_cast<float>(extentOfObject + width) / 2;
           this->center_.row = height;
-          this->center_.depth = data[height*maxWidth+((extentOfObject + width) / 2)];
+          this->center_.depth =
+              data[height * maxWidth + ((extentOfObject + width) / 2)];
           this->isRight_ = (center_.column > static_cast<float>(maxWidth / 2));
-          RCLCPP_INFO(this->get_logger(),"Detected objected centerPoint height %ld width %f extend %ld",height,this->center_.column,extentOfObject);
+          RCLCPP_INFO(
+              this->get_logger(),
+              "Detected objected centerPoint height %ld width %f extend %ld",
+              height, this->center_.column, extentOfObject);
         }
         break;
       } else {
         isObjectDetected_ = false;
       }
     }
-    if(isObjectDetected_){
+    if (isObjectDetected_) {
       break;
     }
   }
@@ -118,7 +121,7 @@ void Inspector::imageProcessor(bool checkForObjectSize) {
 void Inspector::imageSubscriber(const image msg) {
   std::unique_lock<std::mutex> lock(dataMutex_);
   lastDepth_ = msg;
-  };
+};
 void Inspector::modelStatesCallback(
     const gazebo_msgs::msg::ModelStates::SharedPtr msg) {
   for (size_t i = 0; i < msg->name.size(); ++i) {
@@ -149,11 +152,10 @@ inline void Inspector::forward() {
 }
 // @brief: Publishes on cmd_vel topic to turn the robot in z direction
 inline void Inspector::turn(bool right) {
-
   this->cmdVel_ = geometry_msgs::msg::Twist();
-  cmdVel_.linear.x=0.5;
+  cmdVel_.linear.x = 0.5;
   cmdVel_.angular.z = 0.5 * (right ? 1.0 : -1.0);
-  RCLCPP_INFO(this->get_logger(), "object to %s",right?"right":"left");
+  RCLCPP_INFO(this->get_logger(), "object to %s", right ? "right" : "left");
   commandVelPublisher_->publish(cmdVel_);
 }
 // @brief: Publishes on cmd_vel topic to stop the robot

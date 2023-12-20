@@ -1,0 +1,14 @@
+Checking libs/HuskyInspector.cpp ...
+1/4 files checked 56% done
+Checking src/main.cpp ...
+2/4 files checked 58% done
+Checking test/integration_test.cpp ...
+3/4 files checked 97% done
+Checking test/unit_test.cpp ...
+4/4 files checked 100% done
+test/integration_test.cpp:20:0: style: The function 'SetUp' is never used. [unusedFunction]
+
+^
+test/integration_test.cpp:35:0: style: The function 'TearDown' is never used. [unusedFunction]
+
+^
