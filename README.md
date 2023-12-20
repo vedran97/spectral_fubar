@@ -22,7 +22,7 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 
 1. Sprint Log is here: [LINK](https://docs.google.com/document/d/1LM4T2IaXjHfa725iT_XrGdjAjX6Vu2G_JORIrd1daMI/edit?usp=sharing)
 2. AIP Work Logs are here: [LINK](https://docs.google.com/spreadsheets/d/1apXGEWr1nkUdqm7aSSiJ8yui3v2pkUTxmMRXO4ydDmY/edit?usp=sharing)
-3. Final Deliverables are here: [LINK](https://drive.google.com/drive/folders/1iyCzRlYM_VHO__MNFvLk7GiNthm--4n8?usp=drive_link) (including proposal)
+3. Final Deliverables are here: [LINK](https://drive.google.com/drive/folders/1iyCzRlYM_VHO__MNFvLk7GiNthm--4n8?usp=drive_link) (including proposal and final presentation)
 4. PHASE 2 VIDEO is here [LINK](https://drive.google.com/file/d/1cSz5KwAFxXcn649TfvL50kB0wMkjQPaL/view?usp=sharing).
 
 ## Repository Setup instruction
@@ -60,7 +60,7 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 2. source appropriate ros
 3. Run this ```rm -rf build/spectral_fubar```
 4. Run this next to build package,source package,run the test```colcon build --symlink-install --cmake-args -DCOVERAGE=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DINTEGRATION_TEST=ON --parallel-workers $(nproc) --packages-select spectral_fubar && source install/setup.bash && colcon test --packages-select spectral_fubar```
-5. Run this to check results: ```cat log/latest_test/spectral_fubar/stdout_stderr.log``
+5. Run this to check results: ```cat log/latest_test/spectral_fubar/stdout_stderr.log```
 
 ## Generate code cov report (run in repo root)
 
@@ -97,7 +97,6 @@ In another terminal
 
 ```bash
 cd <your_ros2_workspace>
-colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --parallel-workers $(nproc)
 source install/setup.bash
 export HUSKY_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/urdf/realsense.urdf.xacro
 export CPR_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/urdf/realsense.urdf.xacro
