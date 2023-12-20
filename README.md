@@ -81,3 +81,16 @@ export GAZEBO_MODEL_PATH=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/
 ros2 launch spectral_fubar husky_outdoor.launch.py
 
 ```
+
+In another terminal
+
+```bash
+cd <your_ros2_workspace>
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --parallel-workers $(nproc)
+source install/setup.bash
+export HUSKY_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/urdf/realsense.urdf.xacro
+export CPR_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/urdf/realsense.urdf.xacro
+export GAZEBO_MODEL_PATH=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/models:~/.gazebo/models:$GAZEBO_MODEL_PATH
+ros2 run spectral_fubar inspector
+
+```
