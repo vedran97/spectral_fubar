@@ -80,7 +80,7 @@ doxygen_add_docs(docs           # target name
   # List of files or directories
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}
-  ${PROJECT_SOURCE_DIR}/test
+  ${PROJECT_SOURCE_DIR}/libs/
   )
 
 include_directories( ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})

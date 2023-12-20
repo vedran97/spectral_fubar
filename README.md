@@ -23,6 +23,7 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 1. Sprint Log is here: [LINK](https://docs.google.com/document/d/1LM4T2IaXjHfa725iT_XrGdjAjX6Vu2G_JORIrd1daMI/edit?usp=sharing)
 2. AIP Work Logs are here: [LINK](https://docs.google.com/spreadsheets/d/1apXGEWr1nkUdqm7aSSiJ8yui3v2pkUTxmMRXO4ydDmY/edit?usp=sharing)
 3. Final Deliverables are here: [LINK](https://drive.google.com/drive/folders/1iyCzRlYM_VHO__MNFvLk7GiNthm--4n8?usp=drive_link) (including proposal)
+4. PHASE 2 VIDEO is here [LINK](https://drive.google.com/file/d/1cSz5KwAFxXcn649TfvL50kB0wMkjQPaL/view?usp=sharing).
 
 ## Repository Setup instruction
 
@@ -80,5 +81,3 @@ export GAZEBO_MODEL_PATH=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/
 ros2 launch spectral_fubar husky_outdoor.launch.py
 
 ```
-
-## Temporary changes to husky_gazebo
