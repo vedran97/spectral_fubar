@@ -78,6 +78,7 @@ export HUSKY_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/
 export CPR_URDF_EXTRAS=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/urdf/realsense.urdf.xacro
 export GAZEBO_MODEL_PATH=$(ros2 pkg prefix spectral_fubar)/share/spectral_fubar/models:~/.gazebo/models:$GAZEBO_MODEL_PATH
 ros2 launch spectral_fubar husky_outdoor.launch.py
+
 ```
 
 ## Temporary changes to husky_gazebo

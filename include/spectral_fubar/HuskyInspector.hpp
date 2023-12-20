@@ -13,10 +13,12 @@ enum class MotionState { START, FORWARD, TURN, DO_NOTHING };
 struct Point {
   double row;
   double column;
+  double depth;
   Point(double inRow, double inCol) : row(inRow), column(inCol) { ; }
   Point() {
     row = 0;
     column = 0;
+    depth=0;
   }
 };
 using image = sensor_msgs::msg::Image;
@@ -31,9 +33,11 @@ class Inspector : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr cmdVelTimer_;
   rclcpp::Subscription<image>::SharedPtr depthImgSubscriber_;
   rclcpp::TimerBase::SharedPtr processTimer_;
-  bool isObjectDetected_ = false;
-  bool isRight_ = false;
+  volatile bool isObjectDetected_ = false;
+  volatile bool isRight_ = false;
   Point center_;
+   std::mutex dataMutex_;
+  MotionState motionState_;
   void cmdVelPublisher();
 
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr commandVelPublisher_;
@@ -55,6 +59,7 @@ class Inspector : public rclcpp::Node {
   void imageProcessor(bool checkForObjectSize);
   // @brief checks the image and changes motion state of the husky robot
   void motionProcessor();
+  void updateMotionState();
 };
 };  // namespace husky
 #endif
