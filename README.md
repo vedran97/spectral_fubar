@@ -70,13 +70,13 @@ The Husky robot uses a depth camera, and object detection/localization algorithm
 4. ```ros2 run spectral_fubar generate_coverage_report.bash```
 5. ```rm -rf src/spectral_fubar/codecov_html```
 6. ```mkdir src/spectral_fubar/codecov_html```
-7. ```genhtml --output-dir ./src/spectral_fubar/codecov_html/ ./build/spectral_fubar/test_coverage.info ```
+7. ```genhtml --output-dir ./src/spectral_fubar/codecov_html/ ./build/spectral_fubar/test_coverage.info```
 8. ```cp ./build/spectral_fubar/test_coverage.info ./src/spectral_fubar/```
 
 ## Docs generation
 
 0. ```sudo apt install -y doxygen lcov gcovr pandoc```
-1. ```colcon build --event-handlers console_cohesion+ --packages-select spectral_fubar --cmake-target "docs" ```
+1. ```colcon build --event-handlers console_cohesion+ --packages-select spectral_fubar --cmake-target "docs"```
 
 ## Launch Instructions
 
