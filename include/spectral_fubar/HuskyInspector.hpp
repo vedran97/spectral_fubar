@@ -46,7 +46,14 @@ class Inspector : public rclcpp::Node {
   inline void turn(bool right);
   // @brief: Publishes on cmd_vel topic to stop the robot
   inline void stop();
-
+  // @brief : Retrieves the object detected or not flag
+  bool isObjectDetected(){
+    return isObjectDetected_;
+  }
+  // @brief : Retrieves the flag for is the detected object is on the right or let
+  bool isRight(){
+    return isRight_;
+  }
  private:
   image lastDepth_;
   geometry_msgs::msg::Pose robotPose_;
