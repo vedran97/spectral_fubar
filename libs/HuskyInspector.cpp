@@ -156,13 +156,6 @@ void Inspector::modelStatesCallback(
     }
   }
 }
-void Inspector::quaternionToRPY(
-    const geometry_msgs::msg::Quaternion& quaternion, double& roll,
-    double& pitch, double& yaw) {
-  tf2::Quaternion tf_quaternion(quaternion.x, quaternion.y, quaternion.z,
-                                quaternion.w);
-  tf2::Matrix3x3(tf_quaternion).getRPY(roll, pitch, yaw);
-}
 
 // @brief: Publishes on cmd_vel topic to move the robot forward in x direction
 inline void Inspector::forward() {
