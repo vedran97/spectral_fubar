@@ -52,7 +52,7 @@ class Inspector : public rclcpp::Node {
   // @brief Subscribes to depth images
   void imageSubscriber(const image msg);
   // @brief processes images
-  void imageProcessor();
+  void imageProcessor(bool checkForObjectSize);
   // @brief checks the image and changes motion state of the husky robot
   void motionProcessor();
 };

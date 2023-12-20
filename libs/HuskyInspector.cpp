@@ -25,13 +25,11 @@ Inspector::Inspector() : Node("inspector") {
       this->create_wall_timer(std::chrono::milliseconds(100),
                               std::bind(&Inspector::motionProcessor, this));
 }
-void Inspector::motionProcessor(){
-
-}
+void Inspector::motionProcessor() {}
 void Inspector::cmdVelPublisher() {
   this->commandVelPublisher_->publish(cmdVel_);
 }
-void Inspector::imageProcessor() {
+void Inspector::imageProcessor(bool checkForObjectSize) {
   if (lastDepth_.header.stamp.nanosec > 0) {
     return;
   }
@@ -51,19 +49,21 @@ void Inspector::imageProcessor() {
 
       if (depth < depthThreshold) {
         isObjectDetected_ = true;
-        size_t extentOfObject;
-        for (extentOfObject = width; extentOfObject < maxWidth;
-             extentOfObject++) {
-          const auto internalIdx =
-              (height + heightDrop) * maxWidth + extentOfObject;
-          const auto& internalDepth = data[internalIdx];
-          if ((internalDepth > depthThreshold)) {
-            break;
+        if (checkForObjectSize) {
+          size_t extentOfObject;
+          for (extentOfObject = width; extentOfObject < maxWidth;
+               extentOfObject++) {
+            const auto internalIdx =
+                (height + heightDrop) * maxWidth + extentOfObject;
+            const auto& internalDepth = data[internalIdx];
+            if ((internalDepth > depthThreshold + 1.5)) {
+              break;
+            }
           }
+          this->center_.column = static_cast<float>(extentOfObject + width) / 2;
+          this->center_.row = height;
+          this->isRight_ = (center_.column > static_cast<float>(maxWidth / 2));
         }
-        this->center_.column = static_cast<float>(extentOfObject + width) / 2;
-        this->center_.row = height;
-        this->isRight_ = (center_.column > static_cast<float>(maxWidth / 2));
       } else {
         isObjectDetected_ = false;
       }
