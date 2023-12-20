@@ -1,3 +1,13 @@
+/**
+ * @file main.cpp
+ * @author Vedant Ranade
+ * @brief Executable entry point for HuskyInspector
+ * @version 0.1
+ * @date 2023-12-20
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include "HuskyInspector.hpp"
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);

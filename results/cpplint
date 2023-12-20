@@ -1,7 +1,2 @@
-./libs/HuskyInspector.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-./libs/HuskyInspector.cpp:124:  You don't need a ; after a }  [readability/braces] [4]
-./src/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-./src/main.cpp:7:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
 Done processing ./libs/HuskyInspector.cpp
 Done processing ./src/main.cpp
-Total errors found: 4

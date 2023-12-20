@@ -1,3 +1,14 @@
+/**
+ * @file HuskyInspector.cpp
+ * @author Vedant Ranade
+ * @brief ROS2 husky inspector node node's class definitions
+ * @version 0.1
+ * @date 2023-12-20
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include "HuskyInspector.hpp"
 
 #include <tf2/LinearMath/Quaternion.h>
@@ -121,7 +132,7 @@ void Inspector::imageProcessor(bool checkForObjectSize) {
 void Inspector::imageSubscriber(const image msg) {
   std::unique_lock<std::mutex> lock(dataMutex_);
   lastDepth_ = msg;
-};
+}
 void Inspector::modelStatesCallback(
     const gazebo_msgs::msg::ModelStates::SharedPtr msg) {
   for (size_t i = 0; i < msg->name.size(); ++i) {
